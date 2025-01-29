@@ -1,5 +1,5 @@
 #!/bin/bash
 
-MOVIES={"PUSHPA","RRR","DEVARA"}
+MOVIES=("PUSHPA" "RRR" "DEVARA")
 
 echo "print movies list: {$MOVIES}
