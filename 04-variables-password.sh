@@ -1,3 +1,12 @@
-echo "please enter your username: "
-read USERNAME
-echo "entered username: $USERNAME"
+echo "please enter your username1: "
+read USERNAME1
+echo "entered username: $USERNAME1"
+
+
+echo "please enter your username2: "
+read -s USERNAME2
+echo "entered username: $USERNAME2"
+
+
+
+
