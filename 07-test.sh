@@ -8,3 +8,12 @@ then
 else
     echo "he is NOT A ROOT user"
 fi
+
+dnf list installed mysql
+
+if [ $? -ne 0 ]
+then # not installed
+    dnf install mysql -y
+    else
+        echo "MYSQL installed SUCCESS"
+fi
