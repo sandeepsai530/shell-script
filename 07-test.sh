@@ -18,6 +18,8 @@ then # not installed
         echo "MYSQL installed SUCCESS"
 fi
 
+dnf list installed git
+
 if [ $? -ne 0 ]
 then # not installed
     dnf install git -y
