@@ -2,7 +2,7 @@
 
 USER=$(id -u)
 
-if [ $USER -ne 0 ]
+if [ $USER -eq 0 ]
 then
     echo "he is ROOT user"
 else
