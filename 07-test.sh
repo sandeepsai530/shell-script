@@ -7,3 +7,4 @@ then
     echo "he is ROOT user"
 else
     echo "he is NOT A ROOT user"
+fi
