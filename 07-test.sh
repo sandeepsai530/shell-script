@@ -5,9 +5,9 @@ USER=$(id -u)
 if [ $USER -eq 0 ]
 then 
     echo "he is ROOT user"
-    exit 1
 else
     echo "he is NOT a ROOT user"
+    exit 1
 fi
 
 dnf list installed mysql
