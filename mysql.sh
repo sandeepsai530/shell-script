@@ -35,14 +35,14 @@ echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
 CHECK_ROOT
 
-for package in $@
-do 
-    dnf list installed $package &>>LOG_FILE_NAME
-    if [ $? -ne 0 ]
-    then
-        dnf install $package &>>LOG_FILE_NAME
-        VALIDATE $? "Installing $package"
-    else
-        echo -e "$package is already $Y .. INSTALLED $N"
-    fi
-done
+dnf install mysql-server -y &>>$LOG_FILE_NAME
+VALIDATE $? "installing MySQL server"
+
+systemctl enable mysqld &>>$LOG_FILE_NAME
+VALIDATE $? "Enabling MYSQL server"
+
+systemctl start mysqld &>>$LOG_FILE_NAME
+VALIDATE $? "starting MYSQL server"
+
+mysql_secure_installation --set-root-pass ExpenseApp@1
+VALIDATE $? "setting Root password"

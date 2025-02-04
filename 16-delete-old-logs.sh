@@ -6,6 +6,8 @@ G="\e[32m"
 Y="\e[33m"
 N="\e[0m"
 
+SOURCE_DIR="/home/ec2-user/app-logs"
+
 LOGS_FOLDER="/var/log/shellscript-logs"
 LOG_FILE=$(echo $0 | cut -d "." -f1 )
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
@@ -22,27 +24,16 @@ VALIDATE(){
 }
 
 CHECK_ROOT(){
-    if [ $1 -ne 0 ]
+    if [ $USERID -ne 0 ]
     then 
-        echo -e "$2 ... $R FAILURE $N"
+        echo -e "$2 ... $R NOT A ROOT USER $N"
         exit 1
     else    
-        echo -e "$2 --- $G SUCCESS $N"
+        echo -e "$2 --- $G ROOT USER $N"
     fi
 }
 
 echo "Script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
-CHECK_ROOT
-
-for package in $@
-do 
-    dnf list installed $package &>>LOG_FILE_NAME
-    if [ $? -ne 0 ]
-    then
-        dnf install $package &>>LOG_FILE_NAME
-        VALIDATE $? "Installing $package"
-    else
-        echo -e "$package is already $Y .. INSTALLED $N"
-    fi
-done
+$(find $SOURCE_DIR -name "*.log" -mtime +14)
+echo "files to be deleted: $FILES_TO_DELETE"
