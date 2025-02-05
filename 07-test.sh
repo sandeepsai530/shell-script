@@ -1,29 +1,37 @@
 #!/bin/bash
 
-USER=$(id -u)
+USERID=$(id -u)
 
-if [ $USER -eq 0 ]
-then 
-    echo "he is ROOT user"
-else
-    echo "he is NOT a ROOT user"
-    exit 1
-fi
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
-dnf list installed mysql
+SOURCE_DIR="/home/ec2-user/app-logs"
 
-if [ $? -ne 0 ]
-then 
-    dnf install mysql -y
+LOGS_FOLDER="/var/log/shellscript-logs"
+LOG_FILE=$(echo $0 | cut -d "." -f1)
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
+LOG_FILE_NAME="$LOGS_FOLDER/$LOG_FILE-$TIMESTAMP.log"
+
+CHECK_ROOT(){
+    if [ USERID -ne 0 ]
+    then
+        echo -e "$2 ... $R NOT A ROOT USER $N"
+        exit 1
     else
-        echo " MYSQL already installed"
-fi
+        echo -e "$2 ... $R ROOT USER $N"
+    fi
+}
 
-dnf list installed git
+echo " script started executing at: $TIMESTAMP" &>>$LOG_FILE_NAME
 
-if [ $? -ne 0 ]
-then
-    dnf install git -y
-    else
-        echo "GIT already installed"
-fi
+FILES_TO_DELETE=$(find $SOURCE_DIR -name "*.log" -mtime +14)
+echo "files to be deleted: $FILES_TO_DELETE"
+
+
+while read -r file
+do
+    echo "Deleting file: $file"
+    rm -rf $file
+done <<< $FILES_TO_DELETE
