@@ -57,7 +57,7 @@ then
     find $SOURCE_DIR -name "*.log" -mtime +$DAYS | zip -@ "$ZIP_FILE"
     if [ -f "$ZIP_FILE" ]
     then
-        echo -e "ZIP file created"
+        echo -e "ZIP file created for files older than $DAYS"
     else
         echo -e "$R Error:: $N failed to create ZIP file"
         exit 1
