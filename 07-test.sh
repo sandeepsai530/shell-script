@@ -15,6 +15,7 @@ CHECK_ROOT(){
 if [ $USERID -ne 0 ]
 then
     echo -e "$R NOT A ROOT USER"
+    exit 1
 else
     echo -e "$G ROOT USER"
 fi
