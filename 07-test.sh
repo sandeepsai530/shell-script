@@ -1,13 +1,17 @@
 #!/bin/bash
 
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+
 USERID=$(id -u)
 
 CHECK_ROOT(){
 if [ $USERID -ne 0 ]
 then
-    echo "NOT A ROOT USER"
+    echo -e "$R NOT A ROOT USER"
 else
-    echo "ROOT USER"
+    echo -e "$G ROOT USER"
 fi
 }
 
