@@ -10,3 +10,5 @@ else
     echo "ROOT USER"
 fi
 }
+
+CHECK_ROOT()
